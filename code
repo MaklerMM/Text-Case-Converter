@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Case Converter</title>
+    <style>
+        textarea {
+            width: 500px;
+            height: 300px;
+        }
+        button {
+            background: lightsalmon;
+            border-width: 0;
+            min-height: 25px;
+            margin: 5px;
+        }
+    </style>
+    <script type="text/javascript">
+        function toUpper()
+        {
+            let sentence = document.getElementById("content").value;
+
+            document.getElementById("content").value= sentence.toUpperCase();
+        };
+
+        function toLower()
+        {
+            let sentence = document.getElementById("content").value;
+
+            document.getElementById("content").value= sentence.toLowerCase();
+        };
+
+        function toTitle()
+        {
+            let sentence = document.getElementById("content").value;
+
+            document.getElementById("content").value=
+                sentence.split(' ').map(w => w[0].toUpperCase() + w.substr(1).toLowerCase()).join(' ');
+        };
+
+        function toSentence()
+        {
+            let sentence = document.getElementById("content").value;
+
+            document.getElementById("content").value=
+                sentence.split('. ').map(w => w[0].toUpperCase() + w.substr(1).toLowerCase()).join('. ');
+        };
+
+        function download(filename, text)
+        {
+            let element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+        };
+    </script>
+</head>
+
+<body>
+<div class="flex-container">
+<div class="title"><h1>Case Converter</h1></div>
+<div>
+        <textarea id="content"></textarea>
+</div>
+<div>
+    <button type="button" id="upper-case" name="upper-case" onclick="toUpper()">
+        Upper Case
+    </button>
+    <button type="button" id="lower-case" name="lower-case" onclick="toLower()">
+        Lower Case
+    </button>
+    <button type="button" id="proper-case" name="proper-case" onclick="toTitle()">
+        Proper Case
+    </button>
+    <button type="button" id="sentence-case" name="sentence-case" onclick="toSentence()">
+        Sentence Case
+    </button>
+    <button type="button" id="save-text-file" name="save-text-file" onclick='download("text.txt", document.getElementById("content").value)'>
+        Save text file
+    </button>
+</div>
+
+</div>
+</body>
+</html>
